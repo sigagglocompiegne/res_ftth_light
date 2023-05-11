@@ -77,11 +77,13 @@ CREATE TABLE m_reseau_sec.an_ftth_objet
 	qualgloc character varying(1) NOT NULL DEFAULT 'C',
 	insee character varying(5),
 	mouvrage character varying(100),
+	gexploit character varying(100),
+	refcontrat character varying(100),
 	libcontrat character varying(100),
 	observ character varying(254),
 	dbinsert timestamp without time zone NOT NULL DEFAULT now(),
 	dbupdate timestamp without time zone,
-	CONSTRAINT an_ftth_objet_pkay PRIMARY KEY (idftth)
+	CONSTRAINT an_ftth_objet_pkey PRIMARY KEY (idftth)
 )
 WITH (
 	OIDS=FALSE
@@ -90,10 +92,10 @@ WITH (
 COMMENT ON TABLE m_reseau_sec.an_ftth_objet
 	IS 'Classe abstraite décrivant un objet du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.idftth IS 'identifiant unique de l''objet';
-COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.refprod IS 'Référence producteur de l''entité'
+COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.enservice IS 'Objet en service ou non (abandonné)';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.andebpose IS 'Année marquant le début de la période de pose';
-COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.afinpose IS 'Année marquant la fin de la période de pose';
+COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.anfinpose IS 'Année marquant la fin de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.sourmaj IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.datemaj IS 'Date de la dernière mise à jour des informations';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.qualgloc IS 'Qualité de la géolocalisation (XYZ)';
@@ -106,7 +108,7 @@ COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.observ IS 'Observations';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.dbinsert IS 'Horodatage de l''intégration en base de l''objet';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.dbupdate IS 'Horodatage de la mise à jour en base de l''objet';
 
-ALTER TABLE m_reseau_sec.an_ftth_objet ALTER COLUMN idftth SET DEFAULT nexval('m_reseau_sec.idftth_seq'::regclass);
+ALTER TABLE m_reseau_sec.an_ftth_objet ALTER COLUMN idftth SET DEFAULT nextval('m_reseau_sec.idftth_seq'::regclass);
 
 
 -- ################################################################ CLASSE OUV ##############################################
@@ -123,7 +125,7 @@ CREATE TABLE m_reseau_sec.geo_ftth_ouv
 	x numeric(10,3) NOT NULL,
 	y numeric(10,3) NOT NULL,
 	ztn numeric(7,3) NOT NULL,
-	geom geometry(Point,2154) NO NULL,
+	geom geometry(Point,2154) NOT NULL,
 	CONSTRAINT geo_ftth_ouv_pkey PRIMARY KEY (idftth)
 )
 WITH (
@@ -161,7 +163,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_reseau_sec.geo_ftth_can
-	IS 'Classe décivant un cable du réseau ftth'
+	IS 'Classe décivant un cable du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.idftth IS 'Identifiant unique d''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.positio IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.longcalc IS 'Longueur du câble calculée en mètre';
@@ -178,13 +180,13 @@ COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.geom IS 'Géométrie linéaire de l'
 -- idftth
 
 ALTER TABLE m_reseau_sec.geo_ftth_can
-	ADD CONSTRAINT geo_ftth_can.idftth fkey FOREIGN KEY (idftth)
+	ADD CONSTRAINT geo_ftth_can_idftth_fkey FOREIGN KEY (idftth)
 	REFERENCES m_reseau_sec.an_ftth_objet (idftth) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE CASCADE;
 
 ALTER TABLE m_reseau_sec.geo_ftth_ouv
-	ADD CONSTRAINT geo_ftth_ouv.idftth_fkey FOREIGN KEY (idftth)
+	ADD CONSTRAINT geo_ftth_ouv_idftth_fkey FOREIGN KEY (idftth)
 	REFERENCES m_reseau_sec.an_ftth_objet (idftth) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE CASCADE;
@@ -350,12 +352,7 @@ GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_can TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_edit;
 
-ALTER SEQUENCE m_reseau_sec.idftth_seq
-  OWNER TO sig_create;
-GRANT ALL ON TABLE m_reseau_sec.idftth_seq TO sig_create;
-GRANT SELECT ON TABLE m_reseau_sec.idftth_seq TO sig_read;
-GRANT ALL ON TABLE m_reseau_sec.idftth_seq TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.idftth_seq TO sig_edit;
+
 
 
 
