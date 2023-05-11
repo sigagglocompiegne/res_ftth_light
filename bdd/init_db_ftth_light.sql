@@ -352,5 +352,3 @@ GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_can TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_edit;
-
-test
