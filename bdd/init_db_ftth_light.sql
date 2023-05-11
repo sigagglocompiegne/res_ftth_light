@@ -293,7 +293,7 @@ COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.idftth IS 'identifiant unique de l''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.enservice IS 'Objet en service ou non (abandonné)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.positio IS 'Posiiton du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.positio IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.longcalc IS 'Longueur du câble calculée';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.andebpose IS 'Année marquant le début de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.anfinpose IS 'Année marquant la fin de la période de pose';
