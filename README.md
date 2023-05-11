@@ -17,5 +17,3 @@ Les attendus de connaissances pour ce modèle simplifié concerne :
 * le maitre d'ouvrage, l'exploitant et la référence / nom du contrat
 * année ou période de pose
 * les métadonnées qualités (date de la source ...)
-
-TESTESTETESTTSTSET
