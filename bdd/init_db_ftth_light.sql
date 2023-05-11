@@ -22,8 +22,8 @@ DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_can;
 DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_ouv;
 
 -- fkey
-ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_can_fkey;
-ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_ouv_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_ouv DROP CONSTRAINT geo_ftth_ouv_idftth_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_can_idftth_fkey;
 
 -- classe
 DROP TABLE IF EXISTS m_reseau_sec.an_ftth_objet;
@@ -125,6 +125,7 @@ CREATE TABLE m_reseau_sec.geo_ftth_ouv
 	x numeric(10,3) NOT NULL,
 	y numeric(10,3) NOT NULL,
 	ztn numeric(7,3) NOT NULL,
+	zouv numeric(7,3) NOT NULL,
 	geom geometry(Point,2154) NOT NULL,
 	CONSTRAINT geo_ftth_ouv_pkey PRIMARY KEY (idftth)
 )
@@ -200,28 +201,28 @@ ALTER TABLE m_reseau_sec.geo_ftth_ouv
 
 CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv AS
 	SELECT
-	a.idftth
-	a.refprod
-	a.enservice
-	g.typouv
-	g.boitier
-	g.x
-	g.y
-	g.ztn
-	g.zouv
-	a.andebpose
-	a.anfinpose
-	a.sourmaj
-	a.datemaj
-	a.qualgloc
-	a.insee
-	a.mouvrage
-	a.gexploit
-	a.refcontrat
-	a.libcontrat
-	a.observ
-	a.dbinsert
-	a.dbupdate
+	a.idftth,
+	a.refprod,
+	a.enservice,
+	g.typouv,
+	g.boitier,
+	g.x,
+	g.y,
+	g.ztn,
+	g.zouv,
+	a.andebpose,
+	a.anfinpose,
+	a.sourmaj,
+	a.datemaj,
+	a.qualgloc,
+	a.insee,
+	a.mouvrage,
+	a.gexploit,
+	a.refcontrat,
+	a.libcontrat,
+	a.observ,
+	a.dbinsert,
+	a.dbupdate,
 	g.geom
 
 FROM m_reseau_sec.geo_ftth_ouv g
@@ -231,16 +232,16 @@ ORDER BY a.idftth;
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv
 	IS 'VM joignant les classe d''objets : an_ftth_objet et geo_ftth_ouv';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idftth IS 'identifiant unique de l''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité'
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.enservice IS 'Objet en service ou non (abandonné)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.typouv IS 'type d''ouvrage du réseau FTTH';
-COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.boitier IS 'l''ouvrage a un boitier associé';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.boitier IS 'l''ouvrage a un boitier associé';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.x IS 'Coordonnée X Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.y IS 'Coordonnée Y Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.ztn IS 'Altimétrie du terrain naturel (en mètres, Référentiel NGFIGN69)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.zouv IS 'Altimétrie de l''ouvrage (en mètres, Référentiel NGFIGN69)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.andebpose IS 'Année marquant le début de la période de pose';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.afinpose IS 'Année marquant la fin de la période de pose';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.anfinpose IS 'Année marquant la fin de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.sourmaj IS 'Source de la mise à jour';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.datemaj IS 'Date de la dernière mise à jour des informations';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.qualgloc IS 'Qualité de la géolocalisation (XYZ)';
@@ -263,24 +264,24 @@ COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.geom IS 'Géométrie linéaire de
 
 CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_can AS
 	SELECT
-	a.idftth
-	a.refprod
-	a.enservice
-	g.positio
-	g.longcalc
-	a.andebpose
-	a.anfinpose
-	a.sourmaj
-	a.datemaj
-	a.qualgloc
-	a.insee
-	a.mouvrage
-	a.gexploit
-	a.refcontrat
-	a.libcontrat
-	a.observ
-	a.dbinsert
-	a.dbupdate
+	a.idftth,
+	a.refprod,
+	a.enservice,
+	g.positio,
+	g.longcalc,
+	a.andebpose,
+	a.anfinpose,
+	a.sourmaj,
+	a.datemaj,
+	a.qualgloc,
+	a.insee,
+	a.mouvrage,
+	a.gexploit,
+	a.refcontrat,
+	a.libcontrat,
+	a.observ,
+	a.dbinsert,
+	a.dbupdate,
 	g.geom
 
 FROM m_reseau_sec.geo_ftth_can g
@@ -289,25 +290,25 @@ ORDER BY a.idftth;
 
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_can
 	IS 'VM joignant les classe d''objets : an_ftth_objet et geo_ftth_can';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idftth IS 'identifiant unique de l''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité'
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.enservice IS 'Objet en service ou non (abandonné)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.positio IS 'Posiiton du réseau';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.longcalc IS 'Longueur du câble calculée';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.andebpose IS 'Année marquant le début de la période de pose';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.afinpose IS 'Année marquant la fin de la période de pose';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.sourmaj IS 'Source de la mise à jour';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.datemaj IS 'Date de la dernière mise à jour des informations';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.qualgloc IS 'Qualité de la géolocalisation (XYZ)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.insee IS 'Code INSEE';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.mouvrage IS 'Maître d''ouvrage du réseau';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.gexploit IS 'Gestionnaire exploitant du réseau';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refcontrat IS 'Référence du contrat de délégation';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.libcontrat IS 'Nom du contrat de délégation';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.observ IS 'Observations';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.dbinsert IS 'Horodatage de l''intégration en base de l''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.dbupdate IS 'Horodatage de la mise à jour en base de l''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.geom IS 'Géométrie linéaire de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.idftth IS 'identifiant unique de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.refprod IS 'Référence producteur de l''entité';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.enservice IS 'Objet en service ou non (abandonné)';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.positio IS 'Posiiton du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.longcalc IS 'Longueur du câble calculée';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.andebpose IS 'Année marquant le début de la période de pose';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.anfinpose IS 'Année marquant la fin de la période de pose';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.sourmaj IS 'Source de la mise à jour';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.datemaj IS 'Date de la dernière mise à jour des informations';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.qualgloc IS 'Qualité de la géolocalisation (XYZ)';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.insee IS 'Code INSEE';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.mouvrage IS 'Maître d''ouvrage du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.gexploit IS 'Gestionnaire exploitant du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.refcontrat IS 'Référence du contrat de délégation';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.libcontrat IS 'Nom du contrat de délégation';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.observ IS 'Observations';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.dbinsert IS 'Horodatage de l''intégration en base de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.dbupdate IS 'Horodatage de la mise à jour en base de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_can.geom IS 'Géométrie linéaire de l''objet';
 
 
 -- ####################################################################################################################################################
@@ -351,9 +352,3 @@ GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_can TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_vm_ftth_can TO sig_edit;
-
-
-
-
-
-
