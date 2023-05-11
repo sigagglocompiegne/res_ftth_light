@@ -22,8 +22,8 @@ DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_can;
 DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_ouv;
 
 -- fkey
-ATLER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_can_fkey;
-ATLER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_ouv_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_can_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_can DROP CONSTRAINT geo_ftth_ouv_fkey;
 
 -- classe
 DROP TABLE IF EXISTS m_reseau_sec.an_ftth_objet;
@@ -151,7 +151,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.geom IS 'Géométrie ponctuelle de l
 CREATE TABLE m_reseau_sec.geo_ftth_can
 (
 	idftth bigint NOT NULL,
-	position character varying(50),
+	positio character varying(50),
 	longcalc numeric(7,3) NOT NULL,
 	geom geometry(LineString,2154) NOT NULL,
 	CONSTRAINT geo_ftth_can_pkey PRIMARY KEY (idftth)
@@ -163,7 +163,7 @@ WITH (
 COMMENT ON TABLE m_reseau_sec.geo_ftth_can
 	IS 'Classe décivant un cable du réseau ftth'
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.idftth IS 'Identifiant unique d''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.position IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.positio IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.longcalc IS 'Longueur du câble calculée en mètre';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_can.geom IS 'Géométrie linéaire de l''objet';
 
@@ -264,7 +264,7 @@ CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_can AS
 	a.idftth
 	a.refprod
 	a.enservice
-	g.position
+	g.positio
 	g.longcalc
 	a.andebpose
 	a.anfinpose
@@ -290,7 +290,7 @@ COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_can
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idftth IS 'identifiant unique de l''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité'
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.enservice IS 'Objet en service ou non (abandonné)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.position IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.positio IS 'Posiiton du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.longcalc IS 'Longueur du câble calculée';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.andebpose IS 'Année marquant le début de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.afinpose IS 'Année marquant la fin de la période de pose';
