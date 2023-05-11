@@ -67,7 +67,7 @@ CREATE SEQUENCE m_reseau_sec.idftth_seq
 
 CREATE TABLE m_reseau_sec.an_ftth_objet
 (
-	idftth biint NOT NULL,
+	idftth bigint NOT NULL,
 	refprod character varying(254),
 	enservice character varying(1),
 	andebpose character varying(4),
@@ -81,7 +81,7 @@ CREATE TABLE m_reseau_sec.an_ftth_objet
 	observ character varying(254),
 	dbinsert timestamp without time zone NOT NULL DEFAULT now(),
 	dbupdate timestamp without time zone,
-	CONSTRAINT an_ftth_objet_pkay ORIMARY KEY (idftth)
+	CONSTRAINT an_ftth_objet_pkay PRIMARY KEY (idftth)
 )
 WITH (
 	OIDS=FALSE
