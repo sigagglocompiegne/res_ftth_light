@@ -1,4 +1,5 @@
 /*
+test
 Base de données "simplifiée" du réseaux FTTH issues des données concessionnaires
 Creation du squelette de la structure (table, séquence, ...)
 init_bd_ftth_light.sql
