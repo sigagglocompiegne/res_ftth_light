@@ -22,8 +22,8 @@ DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_cable;
 DROP MATERIALIZED VIEW IF EXISTS m_reseau_sec.geo_vm_ftth_ouv;
 
 -- fkey
-ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_ouv DROP CONSTRAINT geo_ftth_ouv_idftth_fkey;
-ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_cable DROP CONSTRAINT geo_ftth_cable_idftth_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_ouv DROP CONSTRAINT IF EXISTS geo_ftth_ouv_idftth_fkey;
+ALTER TABLE IF EXISTS m_reseau_sec.geo_ftth_cable DROP CONSTRAINT IF EXISTS geo_ftth_cable_idftth_fkey;
 
 -- classe
 DROP TABLE IF EXISTS m_reseau_sec.an_ftth_objet;
