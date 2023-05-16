@@ -8,6 +8,7 @@ Auteur : Kévin Messager
 */
 
 -- 09/05/2023 : Structure V1 à valider et à contrôler
+-- 16/05/2023 : La concaténation des infos aux points est à faire dans les vm -> Vue matérialisée à reprendre pour etiquette appli geo.
 
 
 -- ####################################################################################################################################################
