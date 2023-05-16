@@ -5,11 +5,11 @@ init_bd_ftth_light.sql
 
 GeoCompiegnois - http://geo.compiegnois.fr/
 Auteur : Kévin Messager
+
+
+09/05/2023 : Structure V1 à valider et à contrôler
+16/05/2023 : Suppression du champ boitier dans la table des ouvrages -> non intégration de la donnée des appareilages. Ine fine -> câbles + ouvrages
 */
-
--- 09/05/2023 : Structure V1 à valider et à contrôler
--- 16/05/2023 : La concaténation des infos aux points est à faire dans les vm -> Vue matérialisée à reprendre pour etiquette appli geo.
-
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -122,7 +122,6 @@ CREATE TABLE m_reseau_sec.geo_ftth_ouv
 (
 	idftth bigint NOT NULL,
 	typouv character varying(80) NOT NULL,
-	boitier character varying(1),
 	x numeric(10,3) NOT NULL,
 	y numeric(10,3) NOT NULL,
 	ztn numeric(7,3) NOT NULL,
@@ -138,7 +137,6 @@ COMMENT ON TABLE m_reseau_sec.geo_ftth_ouv
 	IS 'Classe décrivant un ouvrage du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.idftth IS 'Identifiant unique d''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.typouv IS 'type d''ouvrage du réseau FTTH';
-COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.boitier IS 'l''ouvrage a un boitier associé';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.x IS 'Coordonnée X Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.y IS 'Coordonnée Y Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.ztn IS 'Altimétrie du terrain naturel (en mètres, Référentiel NGFIGN69)';
@@ -206,7 +204,6 @@ CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv AS
 	a.refprod,
 	a.enservice,
 	g.typouv,
-	g.boitier,
 	g.x,
 	g.y,
 	g.ztn,
@@ -236,7 +233,6 @@ COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idftth IS 'identifiant unique de 
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.enservice IS 'Objet en service ou non (abandonné)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.typouv IS 'type d''ouvrage du réseau FTTH';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.boitier IS 'l''ouvrage a un boitier associé';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.x IS 'Coordonnée X Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.y IS 'Coordonnée Y Lambert 93 (en mètres)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.ztn IS 'Altimétrie du terrain naturel (en mètres, Référentiel NGFIGN69)';
