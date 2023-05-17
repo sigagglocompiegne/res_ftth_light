@@ -69,6 +69,7 @@ CREATE SEQUENCE m_reseau_sec.idftth_seq
 CREATE TABLE m_reseau_sec.an_ftth_objet
 (
 	idftth bigint NOT NULL,
+	idext character varying(254),
 	refprod character varying(254),
 	enservice character varying(1),
 	andebpose character varying(4),
@@ -93,6 +94,7 @@ WITH (
 COMMENT ON TABLE m_reseau_sec.an_ftth_objet
 	IS 'Classe abstraite décrivant un objet du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.idftth IS 'identifiant unique de l''objet';
+COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.idext IS 'identifiant externe de l''objet';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.enservice IS 'Objet en service ou non (abandonné)';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.andebpose IS 'Année marquant le début de la période de pose';
@@ -153,7 +155,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.geom IS 'Géométrie ponctuelle de l
 CREATE TABLE m_reseau_sec.geo_ftth_cable
 (
 	idftth bigint NOT NULL,
-	positio character varying(50),
+	position character varying(50),
 	longcalc numeric(7,3) NOT NULL,
 	geom geometry(LineString,2154) NOT NULL,
 	CONSTRAINT geo_ftth_cable_pkey PRIMARY KEY (idftth)
@@ -165,7 +167,7 @@ WITH (
 COMMENT ON TABLE m_reseau_sec.geo_ftth_cable
 	IS 'Classe décivant un cable du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.idftth IS 'Identifiant unique d''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.positio IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.position IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.longcalc IS 'Longueur du câble calculée en mètre';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.geom IS 'Géométrie linéaire de l''objet';
 
@@ -201,6 +203,7 @@ ALTER TABLE m_reseau_sec.geo_ftth_ouv
 CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv AS
 	SELECT
 	a.idftth,
+	a.idext,
 	a.refprod,
 	a.enservice,
 	g.typouv,
@@ -230,6 +233,7 @@ ORDER BY a.idftth;
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv
 	IS 'VM joignant les classe d''objets : an_ftth_objet et geo_ftth_ouv';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idftth IS 'identifiant unique de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.idext IS 'identifiant externe de l''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.enservice IS 'Objet en service ou non (abandonné)';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.typouv IS 'type d''ouvrage du réseau FTTH';
@@ -262,9 +266,10 @@ COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.geom IS 'Géométrie linéaire de
 CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable AS
 	SELECT
 	a.idftth,
+	a.idext,
 	a.refprod,
 	a.enservice,
-	g.positio,
+	g.position,
 	g.longcalc,
 	a.andebpose,
 	a.anfinpose,
@@ -288,9 +293,10 @@ ORDER BY a.idftth;
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable
 	IS 'VM joignant les classe d''objets : an_ftth_objet et geo_ftth_cable';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.idftth IS 'identifiant unique de l''objet';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.idext IS 'identifiant externe de l''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.enservice IS 'Objet en service ou non (abandonné)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.positio IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.position IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.longcalc IS 'Longueur du câble calculée';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.andebpose IS 'Année marquant le début de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.anfinpose IS 'Année marquant la fin de la période de pose';
