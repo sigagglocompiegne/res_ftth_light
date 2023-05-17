@@ -28,3 +28,11 @@ Téloise :
 
 SMOTHD :
 * Les données ont été reçue en décembre 2022. Elle se composent de site technique, d'ouvrages et de câbles.
+
+
+Actions à mener :
+* Pour la donnée sfr, renommer le schéma geo_ftth_sfr_pm pour harmonistation. Le soucis étant la sectorisation des PM qui ne permet pas une intégration au modèle simplifié
+* Pour Téloise, intégrer les données d'infrastructure et de cable au modèle simplifié
+* Pour le SMOTHD, intégrer les données reçues au modèle simplifié
+
+
