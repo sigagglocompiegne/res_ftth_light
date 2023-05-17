@@ -16,4 +16,15 @@ Les attendus de connaissances pour ce modèle simplifié concerne :
 * la classe de précision cartographique au sens DT-DICT (C à défaut)
 * le maitre d'ouvrage, l'exploitant et la référence / nom du contrat
 * année ou période de pose
-* les métadonnées qualités (date de la source ...)
+* les métadonnées qualités (date de la source ...)  
+  
+## Les données de références  
+  
+SFR :
+* Les points de mutualisation avec leur localisation et leurs emprises
+
+Téloise :
+* deux tables, une d'infrastructure et une de cable. A regarder car les champs sont les même mais la donnée cataloguée est celle de l'infra.
+
+SMOTHD :
+* Les données ont été reçue en décembre 2022. Elle se composent de site technique, d'ouvrages et de câbles.
