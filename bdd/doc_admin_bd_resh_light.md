@@ -5,7 +5,7 @@
 ## Schéma fonctionnel 
 
 ## Dépendances (non critiques)  
-La base de données simplifiée du réseau FTTH ne présente aucune dépendnace à des données tierces.
+La base de données simplifiée du réseau FTTH ne présente aucune dépendance à des données tierces.
 
 ## Classes d'objets  
 L'ensemble des classes d'objets sont stockées dans le schéma `m_reseau_sec`.  
