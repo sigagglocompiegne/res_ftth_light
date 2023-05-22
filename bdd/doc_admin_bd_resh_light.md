@@ -45,3 +45,22 @@ Particularité(s) à noter :
 |ztn|Altimétrie du terrain naturel (en mètres, Référentiel NGFIGN69|numeric(7,3)||
 |zouv|Altimétrie de l'ouvrage (en mètres, Référentiel NGFIGN69)|numeric(7,3)||
 |geom|Géométrie ponctuelle de l'objet|geometry(Point,2154)||
+
+Particularité(s) à noter : 
+* Une clé primaire existe sur le champ idftth
+* Une clé étrangère existe sur le champ idftth vers l'attribut du même nom de la classe an_ftth_objet
+
+---
+
+`[m_reseau_sec].[geo_ftth_cable]` : Classe décrivant un câble du réseau FTTH  
+
+| Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idftth|Identifiant unique de l'objet|bigint||
+|position|Position du câble du réseau FTTH|character varying(50)||
+|longcalc|Longueur calculée du câble en mètre|numeric(7,3)||
+|geom|Géométrie linéaire de l'objet|geometry(LineString,2154)||
+
+Particularité(s) à noter : 
+* Une clé primaire existe sur le champ idftth
+* Une clé étrangère existe sur le champ idftth vers l'attribut du même nom de la classe an_ftth_objet
