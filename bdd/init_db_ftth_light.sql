@@ -10,7 +10,7 @@ Auteur : Kévin Messager
 09/05/2023 : Structure V1 à valider et à contrôler
 16/05/2023 : Suppression du champ boitier dans la table des ouvrages -> non intégration de la donnée des appareilages. Ine fine -> câbles + ouvrages
 18/05/2023 : Ajout d'un champ idext corespondant à l'id externe de l'objet (exemple : id national)
-22/05/2023 : Strucure validée à implémenter en base
+22/05/2023 : Strucure validée à implémenter en base -- Intégration en base de prod
 */
 
 -- ####################################################################################################################################################
