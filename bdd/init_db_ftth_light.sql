@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS m_reseau_sec.geo_ftth_cable;
 DROP TABLE IF EXISTS m_reseau_sec.geo_ftth_ouv;
 
 -- sequence
-DROP SEQUENCE IF EXISTS m_reseau_sec.idftth_seq;
+DROP SEQUENCE IF EXISTS m_reseau_sec.an_ftth_objet_idftth_seq;
 
 
 -- ####################################################################################################################################################
@@ -47,7 +47,7 @@ DROP SEQUENCE IF EXISTS m_reseau_sec.idftth_seq;
 -- Sequence : m_reseau_sec.idftth_seq;
 -- DROP SEQUENCE m_reseau_sec.idftth_seq;
 
-CREATE SEQUENCE m_reseau_sec.idftth_seq
+CREATE SEQUENCE m_reseau_sec.an_ftth_objet_idftth_seq
   INCREMENT 1
   MINVALUE 0
   MAXVALUE 9223372036854775807
@@ -113,7 +113,6 @@ COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.observ IS 'Observations';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.dbinsert IS 'Horodatage de l''intégration en base de l''objet';
 COMMENT ON COLUMN m_reseau_sec.an_ftth_objet.dbupdate IS 'Horodatage de la mise à jour en base de l''objet';
 
-ALTER TABLE m_reseau_sec.an_ftth_objet ALTER COLUMN idftth SET DEFAULT nextval('m_reseau_sec.idftth_seq'::regclass);
 
 
 -- ################################################################ CLASSE OUV ##############################################
@@ -157,7 +156,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.geom IS 'Géométrie ponctuelle de l
 CREATE TABLE m_reseau_sec.geo_ftth_cable
 (
 	idftth bigint NOT NULL,
-	position character varying(50),
+	positio character varying(50),
 	longcalc numeric(7,3) NOT NULL,
 	geom geometry(LineString,2154) NOT NULL,
 	CONSTRAINT geo_ftth_cable_pkey PRIMARY KEY (idftth)
@@ -169,7 +168,7 @@ WITH (
 COMMENT ON TABLE m_reseau_sec.geo_ftth_cable
 	IS 'Classe décivant un cable du réseau ftth';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.idftth IS 'Identifiant unique d''objet';
-COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.position IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.positio IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.longcalc IS 'Longueur du câble calculée en mètre';
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_cable.geom IS 'Géométrie linéaire de l''objet';
 
@@ -229,7 +228,7 @@ CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv AS
 	g.geom
 
 FROM m_reseau_sec.geo_ftth_ouv g
-LEFT JOIN m_reseau_sec.an_ftth_objet a USING (idftth)
+	NATURAL JOIN m_reseau_sec.an_ftth_objet a USING (idftth)
 ORDER BY a.idftth;
 	
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv
@@ -271,7 +270,7 @@ CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable AS
 	a.idext,
 	a.refprod,
 	a.enservice,
-	g.position,
+	g.positio,
 	g.longcalc,
 	a.andebpose,
 	a.anfinpose,
@@ -289,7 +288,7 @@ CREATE MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable AS
 	g.geom
 
 FROM m_reseau_sec.geo_ftth_cable g
-LEFT JOIN m_reseau_sec.an_ftth_objet a USING (idftth)
+ NATURAL JOIN m_reseau_sec.an_ftth_objet a
 ORDER BY a.idftth;
 
 COMMENT ON MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable
@@ -298,7 +297,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.idftth IS 'identifiant unique d
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.idext IS 'identifiant externe de l''objet';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.refprod IS 'Référence producteur de l''entité';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.enservice IS 'Objet en service ou non (abandonné)';
-COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.position IS 'Position du réseau';
+COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.positio IS 'Position du réseau';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.longcalc IS 'Longueur du câble calculée';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.andebpose IS 'Année marquant le début de la période de pose';
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_cable.anfinpose IS 'Année marquant la fin de la période de pose';
@@ -328,32 +327,36 @@ ALTER TABLE m_reseau_sec.an_ftth_objet
 GRANT ALL ON TABLE m_reseau_sec.an_ftth_objet TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.an_ftth_objet TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.an_ftth_objet TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.an_ftth_objet TO sig_edit;
+GRANT SELECT ON TABLE m_reseau_sec.an_ftth_objet TO sig_edit;
 
 ALTER TABLE m_reseau_sec.geo_ftth_ouv
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_reseau_sec.geo_ftth_ouv TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_ftth_ouv TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_ftth_ouv TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_ftth_ouv TO sig_edit;
+GRANT SELECT ON TABLE m_reseau_sec.geo_ftth_ouv TO sig_edit;
 
 ALTER TABLE m_reseau_sec.geo_ftth_cable
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_reseau_sec.geo_ftth_cable TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_ftth_cable TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_ftth_cable TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_ftth_cable TO sig_edit;
+GRANT SELECT ON TABLE m_reseau_sec.geo_ftth_cable TO sig_edit;
 
 ALTER MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_ouv
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_ouv TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_ouv TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_ouv TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_vm_ftth_ouv TO sig_edit;
+grant SELECT ON TABLE m_reseau_sec.geo_vm_ftth_ouv TO sig_edit;
 
 ALTER MATERIALIZED VIEW m_reseau_sec.geo_vm_ftth_cable
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_cable TO sig_create;
 GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_cable TO sig_read;
 GRANT ALL ON TABLE m_reseau_sec.geo_vm_ftth_cable TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_reseau_sec.geo_vm_ftth_cable TO sig_edit;
+GRANT SELECT ON TABLE m_reseau_sec.geo_vm_ftth_cable TO sig_edit;
+
+ALTER SEQUENCE m_reseau_sec.an_ftth_objet_idftth_seq OWNER TO create_sig;
+GRANT ALL ON SEQUENCE m_reseau_sec.an_ftth_objet_idftth_seq TO create_sig;
+GRANT ALL ON SEQUENCE m_reseau_sec.an_ftth_objet_idftth_seq TO public;
