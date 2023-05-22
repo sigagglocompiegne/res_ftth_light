@@ -69,4 +69,9 @@ Particularité(s) à noter :
 
 ## Vues d'exploitation  
 
-2 Vues **matérialisée**
+2 Vues **matérialisée** sont intégrées au schéma métier pour rendre compte des données ouvrages et câble du réseau FTT :
+
+| Nom | Description |
+|:---|:---|
+|geo_vm_ftth_ouv|Ouvrages du réseau FTTH|
+|geo_vm_ftth_cable|Câbles du réseau FTTH|
