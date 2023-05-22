@@ -32,6 +32,8 @@ L'ensemble des classes d'objets sont stockées dans le schéma `m_reseau_sec`.
 Particularité(s) à noter :  
 * Une clé primaire existe sur le champ `idftth`  
 
+--- 
+
 `[m_reseau_sec].[geo_ftth_ouv]` : Classe décrivant un ouvrage du réseau FTTH  
 
 | Nom attribut | Définition | Type | Valeurs par défaut |
