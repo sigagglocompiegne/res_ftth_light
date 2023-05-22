@@ -69,4 +69,4 @@ Particularité(s) à noter :
 
 ## Vues d'exploitation  
 
-2 Vues *matérialisée* 
+2 Vues **matérialisée**
