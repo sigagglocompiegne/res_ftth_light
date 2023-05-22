@@ -27,5 +27,5 @@ L'ensemble des classes d'objets sont stockées dans le schéma `m_reseau_sec`.
 |libcontrat|Nom du contrat de délégation|character varying(254)||
 |observ|Observations|character varying(254)||
 |dbinsert|Horodatage de l'intégration en base de l'objet|timestamp without time zone||
-|dbupdate||Horodatage de la mise à jour en base de l'objet|timestamp without time zone||
+|dbupdate|Horodatage de la mise à jour en base de l'objet|timestamp without time zone||
 
