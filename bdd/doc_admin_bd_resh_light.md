@@ -64,3 +64,9 @@ Particularité(s) à noter :
 Particularité(s) à noter : 
 * Une clé primaire existe sur le champ idftth
 * Une clé étrangère existe sur le champ idftth vers l'attribut du même nom de la classe an_ftth_objet
+
+---
+
+## Vues d'exploitation  
+
+2 Vues *matérialisée* 
