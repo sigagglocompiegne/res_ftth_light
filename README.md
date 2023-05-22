@@ -39,9 +39,9 @@ Actions à mener :
 
 ### Dans la base de données
 
-`m_reseau_sec.geo_fo_sfr_pm` à renommer en `m_reseau_sec.geo_ftth_sfr_pm` pour un souci de cohérence.  
+`m_reseau_sec.geo_fo_sfr_pm` à renommer en `m_reseau_sec.geo_ftth_sfr_pm` pour un souci de cohérence.  la table est à conserver dans le cadre du maintient de l'application de développement de fibre optique et aussi car elle contient des données métiers non reprise dans le modèle simplifié.
 
-`m_reseau_sec.geo_fo_teloise_infra`  à renommer en `m_reseau_sec.geo_ftth_teloise_infra` pour un souci de cohérence.  
+`m_reseau_sec.geo_fo_teloise_infra`  à renommer en `m_reseau_sec.geo_ftth_teloise_infra` pour un souci de cohérence.  La table est à conserver car elle contient des données métiers non reprises dans le modèle simplifié.  
 
 
 ### Dans le Générateur d'application  
