@@ -7,7 +7,7 @@
 ## Classes d'objets  
 L'ensemble des classes d'objets sont stockées dans le schéma `m_reseau_sec`.  
 
-`[m_reseau_sec].[geo_ftth_objet]` : Classe abstraite décrivant un objet d''un réseau humide  
+`[m_reseau_sec].[an_ftth_objet]` : Classe abstraite décrivant un objet d''un réseau humide  
 
 | Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
@@ -29,3 +29,10 @@ L'ensemble des classes d'objets sont stockées dans le schéma `m_reseau_sec`.
 |dbinsert|Horodatage de l'intégration en base de l'objet|timestamp without time zone||
 |dbupdate|Horodatage de la mise à jour en base de l'objet|timestamp without time zone||
 
+Particularité(s) à noter :  
+* Une clé primaire existe sur le champ `idftth`  
+
+`[m_reseau_sec].[geo_ftth_ouv]` : Classe décrivant un ouvrage du réseau FTTH  
+
+| Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
