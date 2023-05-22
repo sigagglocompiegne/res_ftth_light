@@ -1,7 +1,7 @@
 /*
 Base de données "simplifiée" du réseaux FTTH issues des données concessionnaires
 Creation du squelette de la structure (table, séquence, ...)
-init_bd_ftth_light.sql
+init_db_ftth_light.sql
 
 GeoCompiegnois - http://geo.compiegnois.fr/
 Auteur : Kévin Messager
@@ -9,7 +9,8 @@ Auteur : Kévin Messager
 
 09/05/2023 : Structure V1 à valider et à contrôler
 16/05/2023 : Suppression du champ boitier dans la table des ouvrages -> non intégration de la donnée des appareilages. Ine fine -> câbles + ouvrages
-28/05/2023 : Ajout d'un champ idext corespondant à l'id externe de l'objet (exemple : id national)
+18/05/2023 : Ajout d'un champ idext corespondant à l'id externe de l'objet (exemple : id national)
+22/05/2023 : Strucure validée à implémenter en base
 */
 
 -- ####################################################################################################################################################
