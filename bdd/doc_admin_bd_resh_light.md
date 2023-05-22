@@ -38,3 +38,10 @@ Particularité(s) à noter :
 
 | Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
+|idftth|Identifiant unique de l'objet|bigint|
+|typouv|Type d'ouvrage du réseau FTTH|character varying(80)||
+|x|Coordonnée X Lambert 93 (en mètres)|numeric(10,3)||
+|y|Coordonnée Y Lambert 93 (en mètres)|numeric(10,3)||
+|ztn|Altimétrie du terrain naturel (en mètres, Référentiel NGFIGN69|numeric(7,3)||
+|zouv|Altimétrie de l'ouvrage (en mètres, Référentiel NGFIGN69)|numeric(7,3)||
+|geom|Géométrie ponctuelle de l'objet|geometry(Point,2154)||
