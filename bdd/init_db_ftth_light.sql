@@ -146,7 +146,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.zouv IS 'Altimétrie de l''ouvrage (
 COMMENT ON COLUMN m_reseau_sec.geo_ftth_ouv.geom IS 'Géométrie ponctuelle de l''objet';
 
 
--- ################################################################ CLASSE_cable ##############################################
+-- ################################################################ CLASSE_CABLE ##############################################
 
 
 -- Table : m_reseau_sec.geo_ftth_cable
@@ -257,7 +257,7 @@ COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.dbupdate IS 'Horodatage de la mis
 COMMENT ON COLUMN m_reseau_sec.geo_vm_ftth_ouv.geom IS 'Géométrie linéaire de l''objet';
 
 
--- #################################################################### VUE_cable ###############################################
+-- #################################################################### VUE_CABLE ###############################################
 
 
 -- View : m_reseau_sec.geo_vm_ftth_cable
